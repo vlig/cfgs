@@ -1,0 +1,21 @@
+# 
+# /etc/fstab: static file system information
+#
+# <file system>	<dir>	<type>	<options>	<dump>	<pass>
+# /dev/sdb2
+UUID=b2791dd9-a21e-456b-95b7-198af8170853	/         	ext4      	rw,relatime,data=ordered	0 1
+
+# /dev/sdb3
+UUID=a3b2b240-6f06-4922-9981-4c6603f4cdba	/var      	ext4      	rw,relatime,data=ordered	0 2
+
+# /dev/sdb4
+UUID=fed1387f-b340-4701-b9d6-2f8b0f48f8c6	/home     	ext4      	rw,noatime,data=ordered	0 2
+
+# /dev/sdb1
+UUID=781E-94C1      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+
+/swapfile       	none      	swap      	defaults  	0 0
+
+https://webdav.yandex.ru:443 /home/vlas/mnt/yandex.disk davfs user,noauto	0 0
+UUID=A0AC0EA4AC0E7556	/mnt/HDD1dat	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
+UUID=1614DF1E14DEFFA3	/mnt/SSD2tmp	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
