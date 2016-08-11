@@ -1,0 +1,3 @@
+name: vlas02
+config-file: mossrc
+description: vlas's v2

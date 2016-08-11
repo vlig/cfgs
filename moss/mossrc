@@ -1,0 +1,46 @@
+background_mod #333333 #555555
+alignment top_middle
+font Droid Sans Mono:size=12
+update_interval 1.0
+
+color1 #ddaa00
+color2 #ddaabb
+color3 lightgrey
+
+default_color white
+default_shade_color #336699 
+default_outline_color green
+
+gap_x 0
+gap_y 15
+
+TEXT
+${color green}VlaS's ANDROID SYSTEM ______________________
+$color$sysname $kernel arch-$machine 
+${color lightgrey}uptime: ${color}$uptime ${color lightgrey}/ ${color}$realtime
+${color lightgrey}load:   $color$loadavg
+${color lightgrey}tasks:  $color$processes ($running_processes running)
+
+${voffset -4}${color green}$battery
+${color lightgrey}CPU: $color${freq} MHz (${cpu}%)
+${cpubar 6}
+${color black}${cpugraph 90,308 #000000 #ffffff}
+${color lightgrey}RAM: $color$mem ${color lightgrey}/ $color$memmax ($memperc%) 
+${membar 6}
+${color}top (3xCPU, 3xRAM) ${color}${alignr}PID  CPU%  MEM%
+${voffset 3}${color1}${length 24 24 ${top name 1}}${alignr}${length 5 5 ${top pid 1}} ${length 4 4 ${top cpu 1}}  ${length 4 4 ${top mem 1}}
+${color2}${length 24 24 ${top name 2}}${alignr}${length 5 5 ${top pid 2}} ${length 4 4 ${top cpu 2}}  ${length 4 4 ${top mem 2}}
+${color3}${length 24 24 ${top name 3}}${alignr}${length 5 5 ${top pid 3}} ${length 4 4 ${top cpu 3}}  ${length 4 4 ${top mem 3}}
+${voffset 3}${color1}${length 24 24 ${top_mem name 1}}${alignr}${length 5 5 ${top pid 1}} ${length 4 4 ${top_mem cpu 1}}  ${length 4 4 ${top_mem mem 1}}
+${color2}${length 24 24 ${top_mem name 2}}${alignr}${length 5 5 ${top pid 2}} ${length 4 4 ${top_mem cpu 2}}  ${length 4 4 ${top_mem mem 2}}
+${color3}${length 24 24 ${top_mem name 3}}${alignr}${length 5 5 ${top pid 3}} ${length 4 4 ${top_mem cpu 3}}  ${length 4 4 ${top_mem mem 3}}
+
+${color lightgrey}ppp0:        down:${color #8844ee} ${length 7 7 ${downspeed ppp0}} ${color lightgrey} up:${color #22ccff} ${upspeed ppp0} 
+${color lightgrey}tiwlan0:     down:${color #8844ee} ${length 7 7 ${downspeed tiwlan0}} ${color lightgrey} up:${color #22ccff} ${upspeed tiwlan0}
+
+${color lightgrey}system: $color${fs_free /system} ${color lightgrey}/ $color${fs_size /system}
+${fs_bar 6 /system}
+${color lightgrey}data:   $color${fs_free /data} ${color lightgrey}/ $color${fs_size /data}
+${fs_bar 6 /data}
+${color lightgrey}sdcard: $color${fs_free /sdcard} ${color lightgrey}/ $color${fs_size /sdcard}
+${fs_bar 6 /sdcard}
