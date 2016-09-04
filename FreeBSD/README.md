@@ -7,4 +7,6 @@ russianu|Russian UTF-8 Users Accounts:\
 ```
 `vipw` - add class **russianu**
 
+`ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime`
+
 Color switching in **.bashrc** is not working (like in Arch)! Tried different.
