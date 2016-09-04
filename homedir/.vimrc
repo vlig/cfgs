@@ -10,3 +10,5 @@ highlight lCursor guifg=NONE guibg=Cyan
 " set spelllang=ru_yo,en_us
 
 set number
+set nobackup
+" set nowritebackup
