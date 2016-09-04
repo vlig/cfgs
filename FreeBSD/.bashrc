@@ -2,9 +2,9 @@
 [[ $- != *i* ]] && return
 
 export TERM=xterm-256color
-# export PAGER='less -s -M +Gg'
-# export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
-export PAGER="/usr/local/bin/most -s"
+export PAGER='less -s -M +Gg'
+export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
+# export MANPAGER="/usr/local/bin/most -s"
 export EDITOR=vim
 export HISTCONTROL=ignoreboth
 export CLICOLOR="YES"
