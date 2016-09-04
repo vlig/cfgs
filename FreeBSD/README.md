@@ -9,4 +9,9 @@ russianu|Russian UTF-8 Users Accounts:\
 
 `ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime`
 
+```
+svnlite co https://svn.freebsd.org/base/stable/11 /usr/src
+svnlite co https://svn.freebsd.org/ports/head /usr/ports
+svnlite co https://svn.freebsd.org/doc/head /usr/doc
+```
 Color switching in **.bashrc** is not working (like in Arch)! Tried different.
