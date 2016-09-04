@@ -7,10 +7,19 @@
 
 export TERM=xterm-256color
 export PAGER='less -s -M +Gg'
+#export PAGER='/usr/share/vim/vim74/macros/less.sh'
 export MANPAGER='less -s -M +Gg'
 #export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
 #export MANPAGER="col -b | vim -c 'set ft=man nonu nomod nolist' -"
+#export MANPAGER="/bin/sh -c \"unset MANPAGER;col -b -x | \
+#               view -R \
+#               -c 'set ft=man nomod nolist' \
+#               -c 'set nonumber' \
+#               -c 'map q :q<CR>' \
+#               -c 'map <SPACE> <C-F>' -c 'map b <C-U>' \
+#               -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export EDITOR=/usr/bin/vim
+export HISTCONTROL=ignoreboth
 
 export WINEPREFIX=$HOME/wines/win32
 export WINEARCH=win32
@@ -25,7 +34,7 @@ alias dmesg='dmesg --color=always'
 alias less=$PAGER
 
 shopt -s histappend
-PROMPT_COMMAND='history -a'
+PROMPT_COMMAND='history -a; history -n'
 
 #PS1='[\u@\h \W]\$ '
 #PS1="\[\e[1;37m\]\D{%k:%M} \[\e[32m\]\u\[\e[0m\]@\h \[\e[1;34m\]\w \[\e[1;32m\]$ \[\e[0;32m\]"
@@ -40,8 +49,8 @@ LINE_CORN1="\342\224\214"
 LINE_CORN2="\342\224\224"
 LINE_COLOR="\[\e[0;37m\]"
 if [[ ${EUID} -eq 0 ]]; then
-	USER_COLOR="\[\e[0;31m\]"
-	SYMBOL="\[\e[0;31m\]#"
+        USER_COLOR="\[\e[0;31m\]"
+        SYMBOL="\[\e[0;31m\]#"
 fi
 PS1="$LINE_COLOR$LINE_CORN1$LINE_VERT$DATE_COLOR\D{%k:%M} $USER_COLOR\u$HOST_COLOR@\h $PWD_COLOR\w \n$LINE_COLOR$LINE_CORN2$LINE_VERT $SYMBOL $INPUT_COLOR"
 export PS1; trap 'printf "\e[0m" "$_"' DEBUG
