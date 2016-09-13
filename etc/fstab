@@ -16,6 +16,6 @@ UUID=781E-94C1      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,cod
 
 /swapfile       	none      	swap      	defaults  	0 0
 
-https://webdav.yandex.ru:443 /home/vlas/mnt/yandex.disk davfs user,noauto	0 0
+https://webdav.yandex.ru:443 /home/vlas/mnt/yadisk davfs user,noauto,noexec,nosuid	0 0
 UUID=A0AC0EA4AC0E7556	/mnt/HDD1dat	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
 UUID=1614DF1E14DEFFA3	/mnt/SSD2tmp	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
