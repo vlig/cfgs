@@ -14,6 +14,7 @@ Parent=FALLBACK/
 
 [Interaction Options]
 AutoCopySelectedText=true
+UnderlineLinksEnabled=false
 
 [Terminal Features]
 BlinkingCursorEnabled=true
