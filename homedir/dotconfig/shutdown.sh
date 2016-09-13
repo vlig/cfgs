@@ -1,3 +1,3 @@
 #!/bin/sh
 
-umount ~/mnt/yandex.disk
+umount ~/mnt/yadisk
