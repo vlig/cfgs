@@ -1,5 +1,6 @@
 #!/bin/sh
 
-mount ~/mnt/yandex.disk
-
-# WINEPREFIX=~/wines/evernote wine ~/wines/evernote/drive_c/Program\ Files/Evernote/Evernote/Evernote.exe
+mplayer -really-quiet -vc null -vo null ~/Music/logonsound/* </dev/null &
+mount ~/mnt/yadisk 
+sleep 20 && kstart --skiptaskbar kontact --iconify
+sleep 10 && kstart --skiptaskbar nixnote2
