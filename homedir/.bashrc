@@ -8,7 +8,7 @@
 export TERM=xterm-256color
 export PAGER='less -s -M +Gg'
 #export PAGER='/usr/share/vim/vim74/macros/less.sh'
-export MANPAGER='less -s -M +Gg'
+#export MANPAGER='less -s -M +Gg'
 #export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
 #export MANPAGER="col -b | vim -c 'set ft=man nonu nomod nolist' -"
 #export MANPAGER="/bin/sh -c \"unset MANPAGER;col -b -x | \
@@ -27,11 +27,15 @@ export WINEARCH=win32
 
 alias sudo='sudo '
 alias rm='rm -i'
-alias ls='ls -F --color=always'
+alias ls='ls -hF --color=always'
+alias ll='ls -l'
+alias la='ls -lA'
 alias dir='dir --color=always'
 alias grep='grep --color=always'
 alias dmesg='dmesg --color=always'
 alias less=$PAGER
+alias df='df -h'
+alias du='du -h'
 
 shopt -s histappend
 PROMPT_COMMAND='history -a; history -n'
