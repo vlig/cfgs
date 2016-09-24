@@ -1,0 +1,6 @@
+include GENERIC
+ident MYKERNEL01
+nooptions       INET6
+options         IPFIREWALL
+options         IPDIVERT
+options         DUMMYNET
