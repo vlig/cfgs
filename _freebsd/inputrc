@@ -1,12 +1,11 @@
 # /etc/inputrc
-
 set convert-meta Off
 set input-meta On
 set output-meta On
-
 "\e[3~": delete-char
 "\e[1;5C": forward-word 
 "\e[1;5D": backward-word 
-
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+TAB:menu-complete
+set visible-stats on
