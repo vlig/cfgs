@@ -1,4 +1,5 @@
 #!/bin/sh
+# ~/.config/autostart-scripts/startup.sh
 
 mplayer -really-quiet -vc null -vo null ~/Music/logonsound/* </dev/null &
 mount ~/mnt/yadisk 
