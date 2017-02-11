@@ -1,3 +1,2 @@
-numlockx &
 xbindkeys
 exec startkde
