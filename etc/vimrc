@@ -10,16 +10,9 @@
 " properly set to work with the Vim-related packages.
 runtime! archlinux.vim
 
-" do not load defaults if ~/.vimrc is missing
-"let skip_defaults_vim=1
-
 " If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim74/vimrc_example.vim or the vim manual
+" Or better yet, read /usr/share/vim/vim80/vimrc_example.vim or the vim manual
 " and configure vim to your own liking!
 
-runtime! vimrc_example.vim
-set laststatus=2
-set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ ff:%{&ff}\ fenc:%{&fenc}%=(ch:%3b\ hex:%2B)\ col:%2c\ line:%2l/%L\ [%2p%%]
-" set spell
-" set spelllang=ru,en
-autocmd FileType plaintext setlocal spell spelllang=ru,en
+" do not load defaults if ~/.vimrc is missing
+"let skip_defaults_vim=1
