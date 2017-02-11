@@ -7,6 +7,7 @@
 
 export TERM=xterm-256color
 export PAGER='less -s -M +Gg'
+#export LESS='--no-init'    # do not clear the screen after quit less
 #export PAGER='/usr/share/vim/vim74/macros/less.sh'
 #export MANPAGER='less -s -M +Gg'
 #export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
