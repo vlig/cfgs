@@ -12,12 +12,12 @@ export PAGER='less -s -M +Gg'
 #export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
 #export MANPAGER="col -b | vim -c 'set ft=man nonu nomod nolist' -"
 #export MANPAGER="/bin/sh -c \"unset MANPAGER;col -b -x | \
-#               view -R \
-#               -c 'set ft=man nomod nolist' \
-#               -c 'set nonumber' \
-#               -c 'map q :q<CR>' \
-#               -c 'map <SPACE> <C-F>' -c 'map b <C-U>' \
-#               -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+#		view -R \
+#		-c 'set ft=man nomod nolist' \
+#		-c 'set nonumber' \
+#		-c 'map q :q<CR>' \
+#		-c 'map <SPACE> <C-F>' -c 'map b <C-U>' \
+#		-c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
 
@@ -53,8 +53,8 @@ LINE_CORN1="\342\224\214"
 LINE_CORN2="\342\224\224"
 LINE_COLOR="\[\e[0;37m\]"
 if [[ ${EUID} -eq 0 ]]; then
-        USER_COLOR="\[\e[0;31m\]"
-        SYMBOL="\[\e[0;31m\]#"
+	USER_COLOR="\[\e[0;31m\]"
+	SYMBOL="\[\e[0;31m\]#"
 fi
 PS1="$LINE_COLOR$LINE_CORN1$LINE_VERT$DATE_COLOR\D{%k:%M} $USER_COLOR\u$HOST_COLOR@\h $PWD_COLOR\w \n$LINE_COLOR$LINE_CORN2$LINE_VERT $SYMBOL $INPUT_COLOR"
 export PS1; trap 'printf "\e[0m" "$_"' DEBUG
@@ -79,3 +79,5 @@ if [[ ${EUID} -ne 0 ]]; then
 		. ~/.bash_aliases-wine
 	fi
 fi
+
+export SAL_USE_VCLPLUGIN=gtk3    # libreoffice
