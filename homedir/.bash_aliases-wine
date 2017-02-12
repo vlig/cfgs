@@ -1,4 +1,4 @@
-alias wine64="WINEARCH=win64 WINEPREFIX=~/wines/win64 $@"
+alias win64="WINEARCH=win64 WINEPREFIX=~/wines/win64 $@"
 alias reaper-wine="WINEDEBUG=-all WINEARCH=win64 WINEPREFIX=~/wines/win64 wine start 'C:\Program Files\REAPER (x64)\reaper.exe' >/dev/null 2>&1 &"
 alias steam-wine="WINEDEBUG=-all wine ~/wines/win32/drive_c/Program\ Files/Steam/Steam.exe -no-cef-sandbox >/dev/null 2>&1 &"
 alias firefox-wine="WINEDEBUG=-all WINEPREFIX=~/wines/win32 wine 'C:\Program Files\Mozilla Firefox\firefox.exe' >/dev/null 2>&1 &"
