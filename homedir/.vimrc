@@ -12,3 +12,7 @@ highlight lCursor guifg=NONE guibg=Cyan
 set number
 set nobackup
 " set nowritebackup
+
+set laststatus=2
+set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ ff:%{&ff}\ fenc:%{&fenc}%=(ch:%3b\ hex:%2B)\ col:%2c\ line:%2l/%L\ [%2p%%]
+
