@@ -5,5 +5,5 @@ Add to **refind.conf**:
 include themes/refind-minimal/theme.conf
 include manual.conf
 ```
-**manual.conf** overrides and complements **refind.conf**
+**manual.conf** overrides and complements **refind.conf**<br />
 Install [refind-minimal](https://github.com/EvanPurkhiser/rEFInd-minimal) theme.
