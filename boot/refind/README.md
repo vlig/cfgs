@@ -6,4 +6,4 @@ include themes/rEFInd-minimal/theme.conf
 include manual.conf
 ```
 **manual.conf** overrides and complements **refind.conf**<br />
-Install [refind-minimal](https://github.com/EvanPurkhiser/rEFInd-minimal) theme.
+Install [rEFInd-minimal](https://github.com/EvanPurkhiser/rEFInd-minimal) theme.
