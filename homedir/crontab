@@ -1,1 +1,1 @@
-* * * * * cd /home/user/GDrive/googleAccount;grive -s pathToSync
+* * * * * cd /home/user/GDrive/googleAccount;grive -s pathToSync    # or without "-s pathToSync" to sync all
