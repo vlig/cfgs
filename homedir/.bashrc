@@ -5,11 +5,15 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export TERM=xterm-256color
-export PAGER='less -s -M +Gg'
-#export LESS='--no-init'    # do not clear the screen after quit less
+#export TERM=xterm-256color
+export PATH="/usr/lib/ccache/bin/:$PATH"
+export HISTCONTROL=ignoreboth
+export LESS='-RMs +Gg'
+#export LESS='-RMs +Gg --no-init'    # do not clear the screen after quit less
+export PAGER=/usr/bin/less
+export EDITOR=/usr/bin/vim
 #export PAGER='/usr/share/vim/vim74/macros/less.sh'
-#export MANPAGER='less -s -M +Gg'
+#export MANPAGER=/usr/bin/less
 #export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
 #export MANPAGER="col -b | vim -c 'set ft=man nonu nomod nolist' -"
 #export MANPAGER="/bin/sh -c \"unset MANPAGER;col -b -x | \
@@ -19,24 +23,21 @@ export PAGER='less -s -M +Gg'
 #		-c 'map q :q<CR>' \
 #		-c 'map <SPACE> <C-F>' -c 'map b <C-U>' \
 #		-c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-export EDITOR=/usr/bin/vim
-export HISTCONTROL=ignoreboth
 
-export WINEPREFIX=$HOME/wines/win32
-export WINEARCH=win32
-#export WINEDLLOVERRIDES=winemenubuilder.exe=d
-
-alias sudo='sudo '
+alias bashrc='$EDITOR ~/.bashrc && . ~/.bashrc'
+alias path='echo -e ${PATH//:/\\n}'
 alias rm='rm -i'
 alias ls='ls -hF --color=always'
-alias ll='ls -l'
-alias la='ls -lA'
+alias ll='ls -lA'
+alias la='ls -A'
 alias dir='dir --color=always'
 alias grep='grep --color=always'
+alias egrep='egrep --color=always'
+alias fgrep='fgrep --color=always'
 alias dmesg='dmesg --color=always'
-alias less=$PAGER
-alias df='df -h'
-alias du='du -h'
+#alias df='df -h'
+#alias du='du -h'
+alias mount='mount | column -t'
 
 shopt -s histappend
 PROMPT_COMMAND='history -a; history -n'
@@ -50,19 +51,30 @@ PWD_COLOR="\[\e[1;34m\]"
 SYMBOL="\[\e[1;32m\]$"
 INPUT_COLOR="\[\e[0;32m\]"
 LINE_VERT="\342\224\200"
-LINE_CORN1="\342\224\214"
-LINE_CORN2="\342\224\224"
+LINE_CORN="\342\224\224"
 LINE_COLOR="\[\e[0;37m\]"
 if [[ ${EUID} -eq 0 ]]; then
 	USER_COLOR="\[\e[0;31m\]"
-	SYMBOL="\[\e[0;31m\]#"
+	SYMBOL="\[\e[1;31m\]#"
 fi
-PS1="$LINE_COLOR$LINE_CORN1$LINE_VERT$DATE_COLOR\D{%k:%M} $USER_COLOR\u$HOST_COLOR@\h $PWD_COLOR\w \n$LINE_COLOR$LINE_CORN2$LINE_VERT $SYMBOL $INPUT_COLOR"
-export PS1; trap 'printf "\e[0m" "$_"' DEBUG
+PS1="$DATE_COLOR\D{%k:%M} $USER_COLOR\u$HOST_COLOR@\h $PWD_COLOR\w \n$LINE_COLOR$LINE_CORN$LINE_VERT $SYMBOL $INPUT_COLOR"
+trap 'printf "\e[0m" "$_"' DEBUG
 
 if [[ -f /usr/share/bash-completion/bash_completion ]]; then
    . /usr/share/bash-completion/bash_completion
 fi
+
+export WINEPREFIX=$HOME/wines/win32
+export WINEARCH=win32
+#export WINEDLLOVERRIDES=winemenubuilder.exe=d
+if [[ ${EUID} -ne 0 ]]; then
+	if [[ -f ~/.bash_aliases-wine ]]; then
+		. ~/.bash_aliases-wine
+	fi
+fi
+
+#export SAL_USE_VCLPLUGIN=gtk3    # libreoffice
+export KWIN_TRIPLE_BUFFER=1
 
 man() {
 	env LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -74,11 +86,3 @@ man() {
 	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 	man "$@"
 }
- 
-if [[ ${EUID} -ne 0 ]]; then
-	if [[ -f ~/.bash_aliases-wine ]]; then
-		. ~/.bash_aliases-wine
-	fi
-fi
-
-export SAL_USE_VCLPLUGIN=gtk3    # libreoffice
