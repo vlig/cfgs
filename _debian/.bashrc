@@ -116,6 +116,7 @@ fi
 setupcon 2>/dev/null
 export EDITOR=/usr/bin/vim
 export LESS='-RMs +Gg'
+export LESSOPEN='|pygmentize -g %s'    # requires (python-)pygments installation
 export PAGER='less'
 alias rm='rm -i'
 alias bashrc='$EDITOR ~/.bashrc && . ~/.bashrc'
