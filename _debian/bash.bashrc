@@ -57,11 +57,11 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
 	}
 fi
 
-USER_COLOR="\[\e[32m\]"
-USER_SYMBOL="\[\e[1;32m\]$"
+USER_COLOR="\[\e[1;32m\]"
+USER_SYMBOL="$"
 if [[ ${EUID} -eq 0 ]]; then
-	USER_COLOR="\[\e[31m\]"
-	USER_SYMBOL="\[\e[1;31m\]#"
+	USER_COLOR="\[\e[1;31m\]"
+	USER_SYMBOL="#"
 fi
-PS1="$USER_COLOR\u\[\e[0m\]@\h \[\e[1;34m\]\w \n\[\e[0;37m\]\342\224\224\342\224\200 $USER_SYMBOL \[\e[0;32m\]"
+PS1="\[\e[1;37m\]\D{%k:%M} $USER_COLOR\u\[\e[0m\]@\h \[\e[1;34m\]\w \n\[\e[0;37m\]\342\224\224\342\224\200 $USER_COLOR$USER_SYMBOL \[\e[0;32m\]"
 trap 'printf "\e[0m" "$_"' DEBUG
