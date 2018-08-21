@@ -10,6 +10,7 @@ export PATH="/usr/lib/ccache/bin/:$PATH"
 export HISTCONTROL=ignoreboth
 export LESS='-RMs +Gg'
 #export LESS='-RMs +Gg --no-init'    # do not clear the screen after quit less
+export LESSOPEN='|pygmentize -g %s'
 export PAGER=/usr/bin/less
 export EDITOR=/usr/bin/vim
 #export PAGER='/usr/share/vim/vim74/macros/less.sh'
@@ -54,7 +55,7 @@ LINE_VERT="\342\224\200"
 LINE_CORN="\342\224\224"
 LINE_COLOR="\[\e[0;37m\]"
 if [[ ${EUID} -eq 0 ]]; then
-	USER_COLOR="\[\e[0;31m\]"
+	USER_COLOR="\[\e[1;31m\]"
 	SYMBOL="\[\e[1;31m\]#"
 fi
 PS1="$DATE_COLOR\D{%k:%M} $USER_COLOR\u$HOST_COLOR@\h $PWD_COLOR\w \n$LINE_COLOR$LINE_CORN$LINE_VERT $SYMBOL $INPUT_COLOR"
