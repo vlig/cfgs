@@ -39,6 +39,7 @@ alias dmesg='dmesg --color=always'
 #alias df='df -h'
 #alias du='du -h'
 #alias mount='mount | column -t'
+alias git-agent='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/github_rsa'
 
 alias kde-startup='$EDITOR ~/.config/autostart-scripts/startup.sh'
 alias kde-shutdown='$EDITOR ~/.config/plasma-workspace/shutdown/shutdown.sh'
