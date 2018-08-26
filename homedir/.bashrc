@@ -38,7 +38,11 @@ alias fgrep='fgrep --color=always'
 alias dmesg='dmesg --color=always'
 #alias df='df -h'
 #alias du='du -h'
-alias mount='mount | column -t'
+#alias mount='mount | column -t'
+
+alias kde-startup='$EDITOR ~/.config/autostart-scripts/startup.sh'
+alias kde-shutdown='$EDITOR ~/.config/plasma-workspace/shutdown/shutdown.sh'
+alias kde-pre-startup='$EDITOR ~/.config/plasma-workspace/env/pre-startup.sh'
 
 shopt -s histappend
 PROMPT_COMMAND='history -a; history -n'
