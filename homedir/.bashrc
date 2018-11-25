@@ -25,6 +25,7 @@ export EDITOR=/usr/bin/vim
 #		-c 'map <SPACE> <C-F>' -c 'map b <C-U>' \
 #		-c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
+alias sudo='sudo '
 alias bashrc='$EDITOR ~/.bashrc && . ~/.bashrc'
 alias path='echo -e ${PATH//:/\\n}'
 alias rm='rm -i'
