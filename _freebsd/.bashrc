@@ -34,7 +34,7 @@ UU='\[\e[1;32m\]'; WU='\[\e[0;31m\]'; _U='\[\e[0;32m\]'
 US='\[\e[1;31m\]'; WS='\[\e[0;31m\]'; _S='\[\e[0;31m\]'
 export      PS1="${UU}\u ${WU}\w ${UU}$ ${_U}"
 export SUDO_PS1="${US}\u ${WS}\w ${US}# ${_S}"
-trap 'printf "\e[0m" "$_"' DEBUG
+trap 'printf "\e[0m" "$_"' DEBUG  # command output still colored in "sudo -s" mode
 
 # Display a random cookie on each login
 if [ -x /usr/bin/fortune ] ; then echo -- && /usr/bin/fortune freebsd-tips ; fi
