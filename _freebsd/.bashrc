@@ -1,11 +1,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export TERM=xterm-256color
-export PAGER='less -s -M +Gg'
-export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
-# export MANPAGER="/usr/local/bin/most -s"
-export EDITOR=vim
+export VISUAL=vim
+export EDITOR='vi -e'
+export LESS='-RMs +Gg'
+#export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
+#export MANPAGER="/usr/local/bin/most -s"
 export HISTCONTROL=ignoreboth
 export CLICOLOR="YES"
 DIR=Ex
@@ -22,13 +22,19 @@ DIR_WO_STICKY=Ex
 export LSCOLORS="$DIR$SYM_LINK$SOCKET$PIPE$EXE$BLOCK_SP$CHAR_SP$EXE_SUID$EXE_GUID$DIR_STICKY$DIR_WO_STICKY"
 
 alias rm='rm -i'
-alias ls='ls -F'
-alias less=$PAGER
+alias ls='ls -hF'
+alias la='ls -A'
+alias ll='ls -Al'
 alias grep="grep --color"
 
-#PS1="\[\e[1;37m\]\D{%k:%M} \[\e[32m\]\u\[\e[0m\]@\h \[\e[1;34m\]\w \[\e[1;32m\]$ \[\e[0;32m\]"
-UCOLOR='\[\e[32m\]'
-SYMBOL='\[\e[1;32m\]\$'
-[ $UID -eq 0 ] && ( UCOLOR='\[\e[31m\]' ; SYMBOL='\[\e[31m\]\#')
-PS1="${UCOLOR}\u \[\e[1;34m\]\w ${UCOLOR}${SYMBOL} \[\e[0m\]"
-export PS1; trap 'printf "\e[0m" "$_"' DEBUG
+alias bashrc='$VISUAL ~/.bashrc && . ~/.bashrc'
+alias path='echo -e ${PATH//:/\\n}'
+
+UU='\[\e[1;32m\]'; WU='\[\e[0;31m\]'; _U='\[\e[0;32m\]'
+US='\[\e[1;31m\]'; WS='\[\e[0;31m\]'; _S='\[\e[0;31m\]'
+export      PS1="${UU}\u ${WU}\w ${UU}$ ${_U}"
+export SUDO_PS1="${US}\u ${WS}\w ${US}# ${_S}"
+trap 'printf "\e[0m" "$_"' DEBUG
+
+# Display a random cookie on each login
+if [ -x /usr/bin/fortune ] ; then echo -- && /usr/bin/fortune freebsd-tips ; fi
