@@ -1,4 +1,3 @@
-# /etc/inputrc
 set convert-meta Off
 set input-meta On
 set output-meta On

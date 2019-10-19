@@ -1,17 +1,9 @@
-Add to /etc/**login.conf**:
+[ISO-images](ftp://ftp-archive.freebsd.org/pub/FreeBSD/releases/ISO_IMAGES)
+New RELENG-version check:
+`svnlite cat https://svn.freebsd.org/base/releng/<VERSION>/sys/conf/newvers.sh | grep -B2 BRANCH=\"`
 ```
-russianu|Russian UTF-8 Users Accounts:\
-        :charset=UTF-8:\
-        :lang=ru_RU.UTF-8:\
-        :tc=default:
-```
-`vipw` - add class **russianu**
-
-`ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime`
-
-```
-svnlite co https://svn.freebsd.org/base/stable/11 /usr/src
+svnlite list https://svn.freebsd.org/base
+svnlite co https://svn.freebsd.org/base/<BRANCH>/<VERSION> /usr/src
 svnlite co https://svn.freebsd.org/ports/head /usr/ports
 svnlite co https://svn.freebsd.org/doc/head /usr/doc
 ```
-Color switching in **.bashrc** is not working (like in Arch)! Tried different.

@@ -1,3 +1,0 @@
-# /etc/profile
-export LANG=ru_RU.UTF-8
-export MM_CHARSET=ru_RU.UTF-8
