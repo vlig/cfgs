@@ -1,11 +1,15 @@
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+#if [[ $TERM != screen ]]; then
+#	cat /etc/motd
+#	[[ -x /usr/local/bin/screenfetch ]] && screenfetch
+#	[[ -x /usr/bin/fortune ]] && echo -- && /usr/bin/fortune freebsd-tips
+#fi
 
 export VISUAL=vim
 export EDITOR='vi -e'
 export LESS='-RMs +Gg'
-#export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<cr>' -"
-#export MANPAGER="/usr/local/bin/most -s"
+[[ -x /usr/local/bin/pygmentize ]] && export LESSOPEN='|pygmentize -g %s'
 export HISTCONTROL=ignoreboth
 export CLICOLOR="YES"
 DIR=Ex
@@ -26,7 +30,6 @@ alias ls='ls -hF'
 alias la='ls -A'
 alias ll='ls -Al'
 alias grep="grep --color"
-
 alias bashrc='$VISUAL ~/.bashrc && . ~/.bashrc'
 alias path='echo -e ${PATH//:/\\n}'
 
@@ -36,5 +39,5 @@ export      PS1="${UU}\u ${WU}\w ${UU}$ ${_U}"
 export SUDO_PS1="${US}\u ${WS}\w ${US}# ${_S}"
 trap 'printf "\e[0m" "$_"' DEBUG  # command output still colored in "sudo -s" mode
 
-# Display a random cookie on each login
-if [ -x /usr/bin/fortune ] ; then echo -- && /usr/bin/fortune freebsd-tips ; fi
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
+	source /usr/local/share/bash-completion/bash_completion.sh
