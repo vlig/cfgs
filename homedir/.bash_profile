@@ -3,4 +3,4 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
-screenfetch
+screenfetch -w
