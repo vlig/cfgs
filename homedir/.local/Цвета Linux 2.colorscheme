@@ -89,6 +89,7 @@ Color=178,178,178
 Color=255,255,255
 
 [General]
+Blur=true
 Description=Цвета Linux 2
-Opacity=0.9
+Opacity=0.8
 Wallpaper=/home/vlas/Pictures/Arch/1920x1200_leopard-1240352_2.jpg

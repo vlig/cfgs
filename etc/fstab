@@ -2,14 +2,18 @@
 # See fstab(5) for details.
 
 # <file system> <dir> <type> <options> <dump> <pass>
-PARTUUID=a73c2c9c-a09d-4c11-b62e-87bc97e82486	/boot     	vfat      	noatime	0 2
-PARTUUID=084a6d6e-1557-4853-9613-e9d7957c85e0	/         	ext4      	defaults,noatime,discard	0 1
-/swapfile					none      	swap      	defaults  	0 0
-PARTUUID=631cb90c-fde4-4b82-a748-71703ac21784	/var      	ext4      	defaults,noatime,discard	0 1
-PARTUUID=cec87b05-70dc-42f5-9d7c-2adce57f470b	/home     	ext4      	defaults,noatime,discard	0 2
-PARTUUID=aac9ca42-dc49-474d-a398-831bafb601d3	/mnt/linux2    	ext4      	rw,noatime,data=ordered		0 2
+PARTUUID=a73c2c9c-a09d-4c11-b62e-87bc97e82486	/esp	vfat	noatime,errors=remount-ro	0 2
+/esp/Arch					/boot	none	noatime,errors=remount-ro,bind	0 2
+PARTUUID=084a6d6e-1557-4853-9613-e9d7957c85e0	/	ext4	defaults,noatime,discard	0 1
+/swapfile					none	swap	defaults  	0 0
+PARTUUID=631cb90c-fde4-4b82-a748-71703ac21784	/var	ext4	defaults,noatime,discard	0 2
+PARTUUID=cec87b05-70dc-42f5-9d7c-2adce57f470b	/home	ext4	defaults,noatime,discard,noauto,x-systemd.automount	0 2
 
-PARTUUID=a8b45467-e6e8-4f29-b7ef-ba9d02f29fd7	/mnt/HDD1	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
-PARTUUID=fcc0c29e-f621-4434-8a6c-f4bb25d03c1b	/mnt/HDD2	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
+#PARTUUID=a8b45467-e6e8-4f29-b7ef-ba9d02f29fd7	/mnt/HDD1	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
+#PARTUUID=fcc0c29e-f621-4434-8a6c-f4bb25d03c1b	/mnt/HDD2	ntfs-3g	uid=vlas,gid=users,dmask=022,fmask=133	0 0
+PARTUUID=a8b45467-e6e8-4f29-b7ef-ba9d02f29fd7	/mnt/HDD1	ntfs-3g		noauto,x-systemd.automount,x-systemd.device-timeout=15,rw	0 0
+PARTUUID=fcc0c29e-f621-4434-8a6c-f4bb25d03c1b	/mnt/HDD2	ntfs-3g		noauto,x-systemd.automount,x-systemd.device-timeout=15,rw	0 0
+PARTUUID=aac9ca42-dc49-474d-a398-831bafb601d3	/mnt/linux2    	ext4      	noauto,x-systemd.automount,x-systemd.device-timeout=15,rw,noatime,data=ordered		0 2
 
-https://webdav.yandex.ru:443 /home/vlas/mnt/yadisk davfs user,rw,noauto	0 0
+#https://webdav.yandex.ru:443 /home/vlas/mnt/yadisk davfs user,rw,noauto	0 0
+#https://webdav.yandex.ru /home/vlas/YDisk/d-mazay davfs rw,user,uid=vlas,file_mode=600,dir_mode=700,noauto 0 0
