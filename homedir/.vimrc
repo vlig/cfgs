@@ -7,10 +7,10 @@ highlight lCursor guifg=NONE guibg=Cyan
 
 set number
 set nobackup
-" set nowritebackup
+" set nowritebackupОчистить
 
 set laststatus=2
 set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ ff:%{&ff}\ fenc:%{&fenc}%=(ch:%3b\ hex:%2B)\ col:%2c\ line:%2l/%L\ [%2p%%]
 
-" Очистить подсвечивание найденных слов
-map <Space> :noh<cr>
+" Убрать подсвечивание результата поиска
+nnoremap <cr> :noh<cr><cr>:<backspace>
