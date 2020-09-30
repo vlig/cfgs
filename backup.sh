@@ -14,22 +14,25 @@ esac
 }
 
 echo
-echo "1: /efi"
-echo "2: /"
-echo "3: /var"
-echo "4: /home"
+echo "e: /efi"
+echo "r: / (root)"
+echo "v: /var"
+echo "h: /home"
+echo "p: pacman database"
 echo "0: QUIT"
 echo -n "What to backup? "; read a
 case "$a" in
-  1 ) FILE=efi; DEST=/$FILE
+  e ) FILE=efi; DEST=/$FILE
       backup;;
-  2 ) FILE=root; DEST=/
+  r ) FILE=root; DEST=/
       OPTS='--exclude {"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/lost+found/*","/swapfile","/home/*","/mnt/*"}'
       backup;;
-  3 ) FILE=var; DEST=/$FILE
+  v ) FILE=var; DEST=/$FILE
       backup;;
-  4 ) FILE=home; DEST=/$FILE
+  h ) FILE=home; DEST=/$FILE
       OPTS='--exclude {"/home/*/.cache/*","/home/*/.ccache/*"}'
       backup;;
+  p ) pacman -Qqe > $BKUPDIR/pkglist.txt
+      tar -сjf $BKUPDIR/pacman_database.tar.bz2 /var/lib/pacman/local;;
   * ) echo "Bye";;
 esac
