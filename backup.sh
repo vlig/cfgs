@@ -9,7 +9,7 @@ echo -e "\n$COMMAND"
 echo -n "Backup $DEST? (y/n): "; read b
 case "$b" in
   y ) $COMMAND;;
-  n ) echo -e "Bye\n";;
+  * ) echo -e "Bye\n";;
 esac
 }
 
