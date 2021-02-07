@@ -1,15 +1,18 @@
 #!/bin/bash
 
-BKUPDIR="/mnt/SSD3/backup-arch"
+DEST="/mnt/BU1/bak/pc2-arch/"
+TIME="`date +%Y%m%d_%H%M%S`"
 
 backup ()
 {
-COMMAND="tar $OPTS --xattrs -czpvf $BKUPDIR/arch-$FILE.tar.gz $DEST"
+COMMAND="tar $EXC --xattrs -czpvf $DEST/$FILE-$TIME.tar.gz $SRC"
+#COMMAND="mkdir $DEST/$FILE-$TIME && rsync -aHAXNSxhv --numeric-ids \
+#         --delete --delete-excluded --delete-after --progress $EXC $SRC $DEST/$FILE-$TIME/"
 echo -e "\n$COMMAND"
-echo -n "Backup $DEST? (y/n): "; read b
+echo -n "Backup $FILE ($SRC)? (y/n): "; read b
 case "$b" in
   y ) $COMMAND;;
-  * ) echo -e "Bye\n";;
+  * ) echo -e "Cancelled\n";;
 esac
 }
 
@@ -19,20 +22,20 @@ echo "r: / (root)"
 echo "v: /var"
 echo "h: /home"
 echo "p: pacman database"
-echo "0: QUIT"
+echo "q: Quit"
 echo -n "What to backup? "; read a
 case "$a" in
-  e ) FILE=efi; DEST=/$FILE
+  e ) FILE=efi; SRC=/$FILE
       backup;;
-  r ) FILE=root; DEST=/
-      OPTS='--exclude {"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/lost+found/*","/swapfile","/home/*","/mnt/*"}'
+  r ) FILE=root; SRC=/
+      EXC='--exclude {"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/lost+found/*","/swapfile","/home/*","/mnt/*"}'
       backup;;
-  v ) FILE=var; DEST=/$FILE
+  v ) FILE=var; SRC=/$FILE
       backup;;
-  h ) FILE=home; DEST=/$FILE
-      OPTS='--exclude {"/home/*/.cache/*","/home/*/.ccache/*"}'
+  h ) FILE=home; SRC=/$FILE
+      EXC='--exclude {"/home/*/.cache/*","/home/*/.ccache/*"}'
       backup;;
-  p ) pacman -Qqe > $BKUPDIR/pkglist.txt
-      tar -сjf $BKUPDIR/pacman_database.tar.bz2 /var/lib/pacman/local;;
-  * ) echo "Bye";;
+  p ) pacman -Qqe > $DEST/pkglist-$TIME.txt
+      tar -сjf $DEST/pacman_database-$TIME.tar.bz2 /var/lib/pacman/local;;
+  * ) echo "Exit";;
 esac
