@@ -1,24 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DEST="/mnt/BU1/bak/pc2-arch/"
+DEST="/mnt/BU1/bak/pc2-arch"
 TIME="`date +%Y%m%d_%H%M%S`"
 
 backup ()
 {
-COMMAND="tar $EXC --xattrs -czpvf $DEST/$FILE-$TIME.tar.gz $SRC"
-#COMMAND="mkdir $DEST/$FILE-$TIME && rsync -aHAXNSxhv --numeric-ids \
+COMMAND="tar -czpv --xattrs $EXC -f $DEST/$FILE-$TIME.tar.gz $SRC"
+#COMMAND="mkdir $DEST/$FILE-$TIME && rsync -aHAXSxh --numeric-ids \
 #         --delete --delete-excluded --delete-after --progress $EXC $SRC $DEST/$FILE-$TIME/"
-echo -e "\n$COMMAND"
+echo "$COMMAND"
 echo -n "Backup $FILE ($SRC)? (y/n): "; read b
 case "$b" in
   y ) $COMMAND; exit 0;;
-  * ) echo -e "Cancelled\n"; exit 0;;
+  * ) echo -e "Cancelled"; exit 0;;
 esac
 }
 
 if [[ -d $DEST ]]
 then
-  echo
   echo "e: /efi"
   echo "r: / (root)"
   echo "v: /var"
@@ -30,12 +29,12 @@ then
     e ) FILE=efi; SRC=/$FILE
         backup; exit 0;;
     r ) FILE=root; SRC=/
-        EXC='--exclude {"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/lost+found/*","/swapfile","/home/*","/mnt/*"}'
+        EXC="--exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/var/* --exclude=/tmp/* --exclude=/run/* --exclude=/media/* --exclude=/lost+found --exclude=/swapfile --exclude=/home/* --exclude=/mnt/*"
         backup; exit 0;;
     v ) FILE=var; SRC=/$FILE
         backup; exit 0;;
     h ) FILE=home; SRC=/$FILE
-        EXC='--exclude {"/home/*/.cache/*","/home/*/.ccache/*"}'
+        EXC="--exclude=/home/*/.cache/* --exclude=/home/*/.ccache/*"
         backup; exit 0;;
     p ) pacman -Qqe > $DEST/pkglist-$TIME.txt
         tar -сjf $DEST/pacman_database-$TIME.tar.bz2 /var/lib/pacman/local;
