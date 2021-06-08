@@ -62,7 +62,7 @@ fi
 
 CMD="rsync ${OPTS} --exclude={${EXCL}} ${SRC}"
 echo; echo "Command to do:"
-printf "${CMD} ${DIR}/${HOST}-<TIMESTAMP>\n"; echo
+printf "${CMD} ${DIR}/\n"; echo
 if [ ${NOCONFIRM} = false ]; then
 	read -p "Type \"yes\" to start ${HOST_LOG} backup: "
 	if [ "${REPLY}" != "yes" ]; then
@@ -71,11 +71,16 @@ if [ ${NOCONFIRM} = false ]; then
 fi
 echo
 DATE="$(date +%Y-%m-%d_%H-%M-%S)"
-TGT="${DIR}/${HOST}-last"
+TGT="${DIR}/last"
+#TGT="${DIR}/${HOST}-last"
 #TGT="${DIR}/${HOST}-${DATE}"
+#echo "DIR=\"${DIR}\""
+#echo "TGT=\"${TGT}\""
 if [ ${RUN} = REAL ]; then
-	[[ ! -d ${TGT} ]] && mkdir ${TGT} && chmod 775 ${TGT} ||\
-		echo "Target directory error" && exit 2
+	if [ ! -d ${TGT} ]; then
+		mkdir ${TGT} && chmod 775 ${TGT} ||\
+		echo  "Target directory error" && exit 2
+	fi
 fi
 echo "${DATE} -- ${RUN} backup start -- ${HOST_LOG}"
 eval "time ${CMD} ${TGT}" &&\
