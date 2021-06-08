@@ -52,8 +52,8 @@ if [ ${RUN} = REAL ]; then
 		REPLY=${REPLY:-y}
 		if [[ "${REPLY}" = [Yy] ]]; then
 			mkdir ${DIR} && chmod 775 ${DIR} &&\
-			echo "Done. Ready for backup." ||\
-			echo "Directory creation error." && exit 2
+			echo "Done. Ready for backup."
+			[ $? -ne 0 ] && { echo "Directory creation error." && exit 2; }
 		else
 			echo "No ${DIR} - no backup. Exiting..." && exit 1
 		fi
@@ -64,27 +64,27 @@ CMD="rsync ${OPTS} --exclude={${EXCL}} ${SRC}"
 echo; echo "Command to do:"
 printf "${CMD} ${DIR}/\n"; echo
 if [ ${NOCONFIRM} = false ]; then
-	read -p "Type \"yes\" to start ${HOST_LOG} backup: "
+	read -p "Type \"yes\" to start ${HOST_LOG} backup in ${RUN} mode: "
 	if [ "${REPLY}" != "yes" ]; then
 		echo "No \"yes\" typed. Exiting..."; exit 1
 	fi
 fi
 echo
-DATE="$(date +%Y-%m-%d_%H-%M-%S)"
+DATE='+%Y-%m-%d_%H-%M-%S'
+#DATE="$(date +%Y-%m-%d_%H-%M-%S)"
 TGT="${DIR}/last"
-#TGT="${DIR}/${HOST}-last"
-#TGT="${DIR}/${HOST}-${DATE}"
-#echo "DIR=\"${DIR}\""
-#echo "TGT=\"${TGT}\""
+#TGT="${DIR}/${DATE}"
 if [ ${RUN} = REAL ]; then
 	if [ ! -d ${TGT} ]; then
 		mkdir ${TGT} && chmod 775 ${TGT} ||\
 		echo  "Target directory error" && exit 2
 	fi
 fi
-echo "${DATE} -- ${RUN} backup start -- ${HOST_LOG}"
-eval "time ${CMD} ${TGT}" &&\
-echo "${DATE} -- ${RUN} backup done -- ${HOST_LOG}" && exit 0 || exit 1
+echo "$(date ${DATE}) -- ${RUN} backup start -- ${HOST_LOG}"
+eval "time ${CMD} ${TGT}"; echo
+[ $? -eq 0 ] && \
+{ echo "$(date ${DATE}) -- ${RUN} backup done -- ${HOST_LOG}" && echo && exit 0; } || \
+{ echo "$(date ${DATE}) -- ${RUN} backup done with errors! -- ${HOST_LOG}" && echo && exit 1; }
 
 #https://wiki.archlinux.org/index.php/rsync
 #https://www.pointsoftware.ch/2012/09/12/howto-local-and-remote-snapshot-backup-using-rsync-with-hard-links/
