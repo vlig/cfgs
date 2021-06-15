@@ -3,7 +3,7 @@
 OPTS='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
 EXCL='"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","lost+found/","/swapfile","/var/swap","/mnt/*","/var/empty/*","/var/run/*","/var/tmp/*","/.snapshots/",".gvfs/","/var/lib/dhcpcd/"'
 EXC2='".thumbnails/",".cache/mozilla/",".cache/chromium/",".cache/google-chrome/",".local/share/Trash/",".ccache/",".cache/yay/**/src/"'
-EXCB='"/usr/src/*","/usr/ports/*","/usr/doc/*","/usr/obj/*"'
+EXCB='"/usr/src/*","/usr/ports/*","/usr/doc/*","/usr/obj/*","/compat/linux/dev/*","/compat/linux/proc/*","/compat/linux/sys/*","/compat/linux/var/empty/*","/compat/linux/var/run/*","/home/*/*.core"'
 PORT=22
 
 if (($(id -u) != 0)); then
