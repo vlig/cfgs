@@ -19,7 +19,7 @@ EXE_SUID=hb
 EXE_GUID=ad
 DIR_STICKY=Ex
 DIR_WO_STICKY=Ex
-export LSCOLORS="$DIR$SYM_LINK$SOCKET$PIPE$EXE$BLOCK_SP$CHAR_SP$EXE_SUID$EXE_GUID$DIR_STICKY$DIR_WO_STICKY"                                                             
+export LSCOLORS="$DIR$SYM_LINK$SOCKET$PIPE$EXE$BLOCK_SP$CHAR_SP$EXE_SUID$EXE_GUID$DIR_STICKY$DIR_WO_STICKY"
 
 alias rm='rm -i'
 alias ls='ls -hFG'
@@ -43,13 +43,13 @@ if [[ ${EUID} != 0 ]]; then
 	UU='\[\e[1;32m\]'; _U='\[\e[0;32m\]'; else
 	UU='\[\e[1;31m\]'; _U='\[\e[0;31m\]'
 fi
-export PS1="${DATE}\D{%k:%M} ${UU}\u${_U}@\H ${WU}\W \n${LINE}${LINE_CORN}${LINE_VERT} ${UU}$ ${_U}"
+export PS1="${DATE}\D{%k:%M} ${UU}\u${_U}@\H ${WU}\w \n${LINE}${LINE_CORN}${LINE_VERT} ${UU}$ ${_U}"
 #US='\[\e[1;31m\]'; WS='\[\e[0;00m\]'; _S='\[\e[0;31m\]'
 #export SUDO_PS1="${DATE}\D{%k:%M} ${US}\u${_S}@\H ${WS}\W \n${LINE}${LINE_CORN}${LINE_VERT} ${US}# ${_S}"
 trap 'printf "\e[0m" "$_"' DEBUG
 
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-        . /usr/local/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
+	. /usr/local/share/bash-completion/bash_completion.sh
 
 man() {
 	env LESS_TERMCAP_mb=$'\e[01;31m' \
