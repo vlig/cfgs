@@ -3,14 +3,14 @@
 OPTS='-rltHPESh --info=progress2 --no-compress --delete --delete-excluded --delete-after'
 # --rsync-path="sudo rsync"'
 SRC="~/storage/shared/"
-EXCL='"/Android/","/MIUI/backup/"'
+EXCL='"/Android/","/MIUI/backup/","/DCIM/"'
 PORT=22
 ENV=STORAGE_BACKUP_DEST
 
-OPTS_T='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
+OPTS_T='-aHPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
 SRC_T="/data/data/com.termux/files/*"
-EXCL_T='""'
-DEST_T="/../termux-files/"
+EXCL_T='"usr/tmp/"'
+DEST_T="../termux-files/"
 
 #echo "${ENV} ENVIRONMENT VARIABLE MUST BE SET FIRSTLY"
 #echo "usage: ./rsync-termux.sh [-t] [-p PORT] [OPTION] ..."
@@ -47,7 +47,7 @@ fi
 DATE="+%F %a %X"
 echo
 echo "$(LC_ALL=C date "${DATE}") --${T} backup start${RUN} ..."
-eval time ${CMD}
+cd ~/.. && eval time ${CMD} && cd ~
 [ $? -eq 0 ] && { echo && \
 echo "$(LC_ALL=C date "${DATE}") --${T} backup completed successfully${RUN}" && \
 echo "Exiting..." && exit 0; } || { echo && \
