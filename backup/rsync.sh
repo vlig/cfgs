@@ -38,7 +38,7 @@ while true; do
 	esac
 	shift
 done
-if [ ! -z $HOST ]; then
+if ! { [ -z $HOST ] || [ $HOST == localhost ]; }; then
 	printf "Requesting for host $HOST... "; ping -c1 $HOST &>/dev/null
 	if [ $? -eq 0 ]
 		then echo responded; sleep 1
@@ -47,7 +47,7 @@ if [ ! -z $HOST ]; then
 fi
 [ -z "${DEST}" ] && echo "No destination specified. Exiting..." && exit 1
 
-if [ -z "${HOST}" ]; then
+if { [ -z $HOST ] || [ $HOST == localhost ]; }; then
 	SRC=/
 	HOST="$(hostname -s)"
 	HOST_LOG="${HOST} (this host)"
