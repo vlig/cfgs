@@ -1,4 +1,9 @@
-if(!$?prompt)exit
+#if(!$?prompt)exit
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 force_color_prompt=yes
 
