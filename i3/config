@@ -13,8 +13,8 @@ set $right l
 floating_modifier $mod
 
 # disable titlebars
-#new_window pixel 1
-#new_float pixel 1
+new_window pixel 1
+new_float pixel 1
 # toggle titlebars on the fly
 bindsym $mod+Shift+b border normal
 bindsym $mod+Shift+Ctrl+b border pixel 1
