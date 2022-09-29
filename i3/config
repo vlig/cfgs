@@ -157,7 +157,7 @@ bindsym $mod+Return exec qterminal
 #bindsym $mod+Return exec urxvtc
 
 # ctrl+alt+L to lock the screen
-bindsym Control+mod1+l exec --no-startup-id i3lock -i /usr/home/x230/Pictures/think/computers-thinkpad-lenovo-1366x768-wallpaper.jpg -t
+bindsym Control+mod1+l exec --no-startup-id convert $HOME/.config/i3/wallpaper-lock RGB:- | i3lock --raw 1366x768:rgb --image /dev/stdin -t
 
 # raise/lower volume with the ThinkPads volume keys. The mute key appears
 # to be a hardware-level mute. It works, but it doesn't register any
