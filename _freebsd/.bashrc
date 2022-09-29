@@ -2,10 +2,11 @@
 
 export VISUAL=vim
 export EDITOR='vi -e'
-export LESS='-RMs +Gg'
+export LESS='-RMsi +Gg'
 #export PAGER='/usr/bin/less'
-export HISTCONTROL=ignoreboth
-shopt -s histappend ; PROMPT_COMMAND='history -a; history -n'
+export HISTCONTROL=ignorespace:erasedups
+shopt -s histappend
+PROMPT_COMMAND='history -a; history -n'
 
 export CLICOLOR_FORCE=1
 DIR=Ex
@@ -21,17 +22,18 @@ DIR_STICKY=Ex
 DIR_WO_STICKY=Ex
 export LSCOLORS="$DIR$SYM_LINK$SOCKET$PIPE$EXE$BLOCK_SP$CHAR_SP$EXE_SUID$EXE_GUID$DIR_STICKY$DIR_WO_STICKY"
 
+alias x='xinit i3'
 alias rm='rm -i'
 alias ls='ls -hFG'
 alias ll='ls -l'
-alias la='ls -lA'
+alias la='ls -la'
 alias sudo='sudo '
 alias grep='grep --color'
 alias egrep='egrep --color'
 alias fgrep='fgrep --color'
 alias bashrc="$VISUAL ~/.bashrc && . ~/.bashrc"
 alias path='echo -e ${PATH//:/\\n}'
-#alias git-agent='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/github_rsa'
+alias reboot='shutdown -r now'
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 DATE='\[\e[1;37m\]'
@@ -61,3 +63,5 @@ man() {
 	LESS_TERMCAP_us=$'\e[04;38;5;146m' \
 	man "$@"
 }
+
+[[ -z "$SSH_AGENT_PID" ]] && eval $(ssh-agent -s)
