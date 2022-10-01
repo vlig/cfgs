@@ -4,7 +4,7 @@ set nobackup
 set laststatus=2
 set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ ff:%{&ff}\ fenc:%{&fenc}%=(ch:%3b\ hex:%2B)\ col:%2c\ line:%2l/%L\ [%2p%%]
 set t_Co=256
-colorscheme murphy # delek for X session
+colorscheme murphy " delek for X session
 
 nnoremap <cr> :noh<cr><cr>:<backspace> " убрать подсвечивание результата поиска
 
