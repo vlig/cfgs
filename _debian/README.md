@@ -1,5 +1,8 @@
-Files location:<br>
-/etc/**bash.bashrc**<br>
-/etc/**inputrc**<br>
 /etc/apt/**apt.conf**<br>
-/etc/vim/**vimrc**<br>
+<br>
+```bash
+sudo mv /root/.bashrc{,.bak}
+sudo ln -s ~/.bashrc /root/
+sudo ln -s ~/.inputrc /root/
+mkdir ~/.vimtmp
+```
