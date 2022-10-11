@@ -1,28 +1,26 @@
 #!/usr/bin/env bash
 
-OPTS='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
-#extra excludes: mounts for backup, Win filesystems, network (/vol/bu*,/vol/win-*,/net)
+####################
+# EXCLUDE PATTERNS #
+####################
+#
+# Basic + mounts for backup, Win filesystems, network dirs:
 EXCL='"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/mnt/*","/export/*","/srv/nfs/*","/net/*","/vol/*","\$RECYCLE.BIN/*","lost+found/","/swapfile","/var/swap","/var/empty/*","/var/run/*","/var/tmp/*","/.snapshots/",".gvfs/","/var/lib/dhcpcd/"'
+#
+# Extra (caches, thumbnails, etc):
 EXC2='".thumbnails/",".cache/mozilla/",".cache/chromium/",".cache/google-chrome/",".local/share/Trash/",".ccache/",".cache/yay/**/src/"'
+#
+# BSD-hosts specific:
 EXCB='"/usr/src/*","/usr/ports/*","/usr/doc/*","/usr/obj/*","/compat/linux/dev/*","/compat/linux/proc/*","/compat/linux/sys/*","/compat/linux/var/empty/*","/compat/linux/var/run/*","/usr/home/*/*.core","/usr/home/*/*.raw*"'
+####################
+
+# Pre-set options, do not change
+OPTS='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
 PORT=22
+EXCF=
 
-if (($(id -u) != 0)); then
-	echo "Must be executed as the superuser only. Exiting..."; exit 2
-fi
-
-#TODO:
-#echo "PERMIT SSH ROOT LOGIN TO SOURCE HOST FIRSTLY"
-#echo "usage: ./rsync.sh [--host HOST [--port PORT]] --dest DEST [OPTION] ..."
-#echo options:
-#echo "--exclude-2		exclude cashes, trash, etc. (check out the script)"
-#echo "--exclude-b		excludes for BSD hosts (check out the script)"
-#echo "--exclude		other excludes
-#echo "--dry-run, -n		perform a trial run with no changes made"
-#echo "--no-confirm, -y		run non-interactively"
-#echo "--help, -h (*)           show this help (* -h is help only on its own)"
-
-TEMP=`getopt -o ny --long host:,port:,dest:,exclude-2,exclude-b,exclude:,dry-run,no-confirm -n 'rsync.sh' -- "$@"`
+# Input section and usage info
+TEMP=`getopt -o ny --long host:,port:,dest:,exclude-2,exclude-bsd,exclude-from:,dry-run,no-confirm -n 'rsync.sh' -- "$@"`
 eval set -- "$TEMP"
 while true; do
 	case "$1" in
@@ -30,23 +28,45 @@ while true; do
 		--port)			PORT="$2"; shift ;;
 		--dest)			DEST="$2"; shift ;;
 		--exclude-2)		EXCL+=",${EXC2}" ;;
-		--exclude-b)		EXCL+=",${EXCB}" ;;
-		--exclude)		EXCL+=",\"${2}\""; shift ;;
+		--exclude-bsd)		EXCL+=",${EXCB}" ;;
+		--exclude-from) 	EXCF="\"$( pwd; )/${2}\""; shift ;;
 		-n|--dry-run)		OPTS+=" --dry-run"; RUN=" (in TEST mode)" ;;
 		-y|--no-confirm)	CONFIRM=false;;
-		?*)	break ;;
+		-h|--help)		echo "\
+PERMIT SSH ROOT LOGIN TO SOURCE HOST FIRSTLY.\n\
+NOTE: GNU getopt is required.\n\
+Usage: ./rsync.sh [ --host HOST [ --port PORT ] ] --dest DEST [ OPTIONS ]\
+\n\nOPTIONS:\n\
+--exclude-2		exclude cashes, trash, etc. (check out the script)\n\
+--exclude-bsd		exclude patterns for BSD hosts (check out the script)\n\
+--exclude-from		read exclude patterns from file\n\
+--dry-run, -n		perform a trial run with no changes made\n\
+--no-confirm, -y	run non-interactively\n\
+--help, -h (*)          show this help (* -h is help only on its own)\
+					" && break ;;
+		?*)			echo "\
+Usage: ./rsync.sh [ --host HOST [ --port PORT ] ] --dest DEST [ OPTIONS ]\
+					" && break ;;
 	esac
 	shift
 done
+
+# Check if non-root
+if (($(id -u) != 0)); then
+	echo "Must be executed as the superuser only. Exiting..."; exit 2
+fi
+
+# Ping the remote host
 if ! { [ -z $HOST ] || [ $HOST == localhost ]; }; then
 	printf "Requesting for host $HOST... "; ping -c1 $HOST &>/dev/null
 	if [ $? -eq 0 ]
-		then echo responded; sleep 1
+		then echo OK; sleep 1
 		else echo "not responding. Exiting..."; exit 1
 	fi
 fi
-[ -z "${DEST}" ] && echo "No destination specified. Exiting..." && exit 1
 
+# Set more variables
+[ -z "${DEST}" ] && echo "No destination specified. Exiting..." && exit 1
 if { [ -z $HOST ] || [ $HOST == localhost ]; }; then
 	SRC=/
 	HOST="$(hostname -s)"
@@ -58,7 +78,10 @@ else
 	CIPH='aes128-gcm@openssh.com'
 OPTS+=" -e \"ssh -T -c $CIPH -o Compression=no -x -i /root/.ssh/rsync -p $PORT\""
 fi
-DIR="${DEST}${HOST}/"	#TODO: check "/" on ${DEST}'s end
+
+# Check if the remote directory exists
+DEST=$(echo ${DEST} |sed -E 's/\/+$//g')\/	# check "/" on $DEST end
+DIR="${DEST}${HOST}/"
 if [ -z ${RUN} ]; then
 	if [ ! -d ${DIR} ]; then read -ern 1 -p \
 		"${HOST} backup directory doesn\'t exist (${DIR}). Create? [Y/n] "
@@ -76,8 +99,8 @@ if [ -z ${RUN} ]; then
 	fi
 fi	
 
-#CMD="rsync ${OPTS} --exclude={${EXCL}} ${SRC} ${@: -1}"
-CMD="rsync ${OPTS} --exclude={${EXCL}} ${SRC}"
+# Form and show the full command right before running, finishing touches...
+CMD="rsync ${OPTS} --exclude={${EXCL}} --exclude-from=${EXCF} ${SRC}"
 echo "Command to do:"
 printf "${CMD} ${DIR}\n"
 if [[ -z ${CONFIRM} ]]; then
@@ -87,10 +110,12 @@ if [[ -z ${CONFIRM} ]]; then
 	fi
 fi
 TGT="${DIR}last"
-#TODO: target dirs rotating by Days, Weeks, Months, Quarters, Years, Leap years, using hardlinks
-#or by day(D), 7D(W), 4*7D(M), 3*4*7D(Q), 4*3*4*7D(Y), 4*4*3*4*7D(L)
-#or by day(D), 6D(W), 5*6D(M), 3*5*6D(Q), 4*3*5*6D(Y), 4*4*3*5*6D(L)
-#Q 90(91) 91 92 92
+# TODO: target dirs rotating
+# by Days, Weeks, Months, Quarters, Years, Leap years, using hardlinks
+# or by day(D), 7D(W), 4*7D(M), 3*4*7D(Q), 4*3*4*7D(Y), 4*4*3*4*7D(L)
+# or by day(D), 6D(W), 5*6D(M), 3*5*6D(Q), 4*3*5*6D(Y), 4*4*3*5*6D(L)
+# Q 90(91) 91 92 92
+# or ... ?
 #TGT="${DIR}$(LC_ALL=C date +%y%m%d-%a)"
 if [[ -z ${RUN} ]]; then
 	if [ ! -d ${TGT} ]; then
@@ -99,10 +124,13 @@ if [[ -z ${RUN} ]]; then
 	fi
 fi
 
+# ... including logs setup
 DATE="+%F %a %X"
 MSG="-- ${HOST_LOG} -- backup"
-#TODO: logs
-#TODO: logs rotating
+# TODO: logs
+# TODO: logs rotating
+
+# Run at last!
 echo
 echo "$(LC_ALL=C date "${DATE}") ${MSG} start${RUN} ..."
 eval time ${CMD} ${TGT}
