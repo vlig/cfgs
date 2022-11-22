@@ -2,6 +2,7 @@ syntax on
 set number
 set ignorecase
 set smartcase
+set backspace=indent,eol,start
 
 " set viminfo+=n$VIM/_viminfo  " for Windows
 
