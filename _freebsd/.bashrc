@@ -45,8 +45,14 @@ if [[ ${EUID} != 0 ]]; then
 	UU='\[\e[1;31m\]'; _U='\[\e[0;31m\]'
 fi
 export PS1="${DATE}\D{%k:%M} ${UU}\u${_U}@\h ${WU}\w \n${LINE}${LINE_CORN}${LINE_VERT} ${UU}$ ${_U}"
-#US='\[\e[1;31m\]'; WS='\[\e[0;00m\]'; _S='\[\e[0;31m\]'
-#export SUDO_PS1="${DATE}\D{%k:%M} ${US}\u${_S}@\H ${WS}\W \n${LINE}${LINE_CORN}${LINE_VERT} ${US}# ${_S}"
+#DU="\[\e[1;37m\]"
+#UU="\[\e[0;32m\]"
+#US="\[\e[0;31m\]"
+#U0="\[\e[0m\]"
+#export      PS1="$DU\D{%k:%M} $U0\u@\h \w\n$UU$ "
+#export SUDO_PS1="$DU\D{%k:%M} $U0\u@\h \w\n$UU# "
+##US='\[\e[1;31m\]'; WS='\[\e[0;00m\]'; _S='\[\e[0;31m\]'
+##export SUDO_PS1="${DATE}\D{%k:%M} ${US}\u${_S}@\H ${WS}\W \n${LINE}${LINE_CORN}${LINE_VERT} ${US}# ${_S}"
 trap 'printf "\e[0m" "$_"' DEBUG
 
 [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion.sh ]] && \
