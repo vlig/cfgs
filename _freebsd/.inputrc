@@ -1,10 +1,20 @@
+set meta-flag On
 set convert-meta Off
 set input-meta On
 set output-meta On
-"\e[3~": delete-char
-"\e[1;5C": forward-word 
-"\e[1;5D": backward-word 
+
+"\C-?": delete-char
+"\e[K": delete-char  # cpp866
+##"\e[3~": delete-char
+"\e[L": quoted-insert
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+"\e[1;5C": forward-word  # only for X
+"\e[1;5D": backward-word  # only for X
+
 #TAB:menu-complete
-set visible-stats on
+set skip-completed-text
+set visible-stats On
+set colored-stats On
+set mark-symlinked-directories On
+set blink-matching-paren On

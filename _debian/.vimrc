@@ -2,8 +2,11 @@ syntax on
 set number
 set ignorecase
 set smartcase
+set backspace=indent,eol,start
 
-" mkdir ~/.vimtmp
+" set viminfo+=n$VIM/_viminfo  " for Windows
+
+" mkdir ~/.vimtmp or _vimtmp in $VIM dir for Windows: $VIM/_vimtmp//,.
 set backup
 set backupdir=~/.vimtmp//,.
 set directory=~/.vimtmp//,.
@@ -12,11 +15,11 @@ set undodir=~/.vimtmp//,.
 set laststatus=2
 set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ ff:%{&ff}\ fenc:%{&fenc}%=(ch:%3b\ hex:%2B)\ col:%2c\ line:%2l/%L\ [%2p%%]
 set t_Co=256
-fi
+
 colorscheme murphy
 "colorscheme delek " for true console
 
-nnoremap <cr> :noh<cr><cr>:<backspace> " remove search results highlights
+nnoremap <cr> :noh<cr><cr>:<backspace>  " remove search results highlights
 
 " Remember position of last edit and return on reopen
 if has("autocmd")
@@ -27,10 +30,11 @@ endif
 """"""""""""""
 
 " https://habrahabr.ru/post/98393/
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-highlight lCursor guifg=NONE guibg=Cyan
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+"set keymap=russian-jcukenwin
+"set iminsert=0
+"set imsearch=0
+"highlight lCursor guifg=NONE guibg=Cyan
 setlocal spelllang=ru_yo,en_us
 
 " https://github.com/lyokha/vim-xkbswitch
