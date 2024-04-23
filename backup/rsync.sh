@@ -19,8 +19,27 @@ OPTS='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-e
 PORT=22
 EXCF=
 
+USAGE="Usage: ./rsync.sh [ --host HOST [ --port PORT ] ] --dest DEST [ OPTIONS ]"
+
+Help()
+{
+  # display help
+  echo "PERMIT SSH ROOT LOGIN TO SOURCE HOST FIRSTLY."
+  echo "Note: GNU getopt is required."
+  echo
+  echo $USAGE
+  echo
+  echo "OPTIONS (check the script for variables):"
+  echo "--exclude-2	exclude extra patterns (EXC2 variable)"
+  echo "--exclude-bsd	exclude BSD-hosts specific patterns (EXCB variable)"
+  echo "--exclude-from	read exclude patterns from file"
+  echo "--dry-run,-n	perform a trial run with no changes made"
+  echo "--no-confirm,-y	run non-interactively"
+  echo "--help, -h (*)	show this help (* -h is help only on its own"
+}
+
 # Input section and usage info
-TEMP=`getopt -o ny --long host:,port:,dest:,exclude-2,exclude-bsd,exclude-from:,dry-run,no-confirm -n 'rsync.sh' -- "$@"`
+TEMP=`getopt -o nyh --long host:,port:,dest:,exclude-2,exclude-bsd,exclude-from:,dry-run,no-confirm,help -n 'rsync.sh' -- "$@"`
 eval set -- "$TEMP"
 while true; do
 	case "$1" in
@@ -32,21 +51,10 @@ while true; do
 		--exclude-from) 	EXCF="\"$( pwd; )/${2}\""; shift ;;
 		-n|--dry-run)		OPTS+=" --dry-run"; RUN=" (in TEST mode)" ;;
 		-y|--no-confirm)	CONFIRM=false;;
-		-h|--help)		echo "\
-PERMIT SSH ROOT LOGIN TO SOURCE HOST FIRSTLY.\n\
-NOTE: GNU getopt is required.\n\
-Usage: ./rsync.sh [ --host HOST [ --port PORT ] ] --dest DEST [ OPTIONS ]\
-\n\nOPTIONS:\n\
---exclude-2		exclude cashes, trash, etc. (check out the script)\n\
---exclude-bsd		exclude patterns for BSD hosts (check out the script)\n\
---exclude-from		read exclude patterns from file\n\
---dry-run, -n		perform a trial run with no changes made\n\
---no-confirm, -y	run non-interactively\n\
---help, -h (*)          show this help (* -h is help only on its own)\
-					" && break ;;
-		?*)			echo "\
-Usage: ./rsync.sh [ --host HOST [ --port PORT ] ] --dest DEST [ OPTIONS ]\
-					" && break ;;
+		-h|--help)		Help && break ;;
+		?*)	echo "$USAGE" &&\
+			echo "Wrong parameters. Use \"--help\" for more help." &&\
+			break; shift ;;
 	esac
 	shift
 done
@@ -58,7 +66,8 @@ fi
 
 # Ping the remote host
 if ! { [ -z $HOST ] || [ $HOST == localhost ]; }; then
-	printf "Requesting for host $HOST... "; ping -c1 $HOST &>/dev/null
+	echo "Requesting for host $HOST... "
+	ping -c1 $HOST  # &>/dev/null
 	if [ $? -eq 0 ]
 		then echo OK; sleep 1
 		else echo "not responding. Exiting..."; exit 1
