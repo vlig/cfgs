@@ -1,6 +1,8 @@
 #clear
 [[ -f ~/.bashrc ]] && . ~/.bashrc
-#if [[ $TERM != screen ]]; then
-#	[[ -x /usr/local/bin/screenfetch ]] && screenfetch
-#	[[ -x /usr/bin/fortune ]] && fortune freebsd-tips
-#fi
+
+[[ $TERM =~ ^(screen|tmux)* ]] && \
+echo "\$TERM = $TERM" || \
+screenfetch
+
+trap 'test -n "$SSH_AGENT_PID" && eval $(/usr/bin/ssh-agent -k)' 0
