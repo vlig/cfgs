@@ -4,8 +4,11 @@
 # EXCLUDE PATTERNS #
 ####################
 #
-# Basic + mounts for backup, Win filesystems, network dirs:
-EXCL='"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/mnt/*","/export/*","/srv/nfs/*","/net/*","/vol/*","\$RECYCLE.BIN/*","lost+found/","/swapfile","/var/swap","/var/empty/*","/var/run/*","/var/tmp/*","/.snapshots/",".gvfs/","/var/lib/dhcpcd/"'
+# Basic:
+EXCL='"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/mnt/*","/export/*","\$RECYCLE.BIN/*","lost+found/","/swapfile","/var/swap","/var/empty/*","/var/run/*","/var/tmp/*","/.snapshots/",".gvfs/","/var/lib/dhcpcd/"'
+## mounts for backup, network dirs, etc.:
+## (already included via -x flag)
+## ,"/vol/*","/net/*","/srv/nfs/*"'
 #
 # Extra (caches, thumbnails, etc):
 EXC2='".thumbnails/",".cache/mozilla/",".cache/chromium/",".cache/google-chrome/",".local/share/Trash/",".ccache/",".cache/yay/**/src/"'
@@ -15,7 +18,7 @@ EXCB='"/usr/src/*","/usr/ports/*","/usr/doc/*","/usr/obj/*","/compat/linux/dev/*
 ####################
 
 # Pre-set options, do not change
-OPTS='-aHAXPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
+OPTS='-aHAXxPESh --info=progress2 --no-compress --numeric-ids --delete --delete-excluded --delete-after'
 PORT=22
 EXCF=
 
