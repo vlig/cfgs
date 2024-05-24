@@ -6,9 +6,7 @@
 #
 # Basic:
 EXCL='"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/media/*","/mnt/*","/export/*","\$RECYCLE.BIN/*","lost+found/","/swapfile","/var/swap","/var/empty/*","/var/run/*","/var/tmp/*","/.snapshots/",".gvfs/","/var/lib/dhcpcd/"'
-## mounts for backup, network dirs, etc.:
-## (already included via -x flag)
-## ,"/vol/*","/net/*","/srv/nfs/*"'
+# separate mounts (backups, net dirs, etc.) are excluded via -x flag
 #
 # Extra (caches, thumbnails, etc):
 EXC2='".thumbnails/",".cache/mozilla/",".cache/chromium/",".cache/google-chrome/",".local/share/Trash/",".ccache/",".cache/yay/**/src/"'
