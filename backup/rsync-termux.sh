@@ -3,7 +3,7 @@
 OPTS='-rltHPESh --info=progress2 --no-compress --delete --delete-excluded --delete-after'
 # --rsync-path="sudo rsync"'
 SRC="~/storage/shared/"
-EXCL='"/Android/","/MIUI/backup/","/DCIM/"'
+EXCL='"/Android/","/MIUI/backup/","/DCIM/","/Books/books.fbreader.org",".thumbnails"'
 PORT=22
 ENV=STORAGE_BACKUP_DEST
 
