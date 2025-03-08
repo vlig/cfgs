@@ -97,7 +97,7 @@ if [ -z ${RUN} ]; then
 		"${HOST} backup directory doesn\'t exist (${DIR}). Create? [Y/n] "
 		REPLY=${REPLY:-y}
 		if [[ "${REPLY}" = [Yy] ]]; then
-			mkdir ${DIR} && chmod 775 ${DIR} &&\
+			mkdir ${DIR} && chmod 770 ${DIR} &&\
 			echo "Done. Ready for backup."
 			[ $? -ne 0 ] && \
 			{ echo "${HOST} backup directory creation error." && \
